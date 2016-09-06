@@ -1,0 +1,52 @@
+var _user$project$Fetch$url = 'http://swapi.co/api/planets/1/?format=json';
+var _user$project$Fetch$decode = A2(
+	_elm_lang$core$Json_Decode$at,
+	_elm_lang$core$Native_List.fromArray(
+		['rotation_period']),
+	_elm_lang$core$Json_Decode$string);
+var _user$project$Fetch$fetchTask = A2(_evancz$elm_http$Http$get, _user$project$Fetch$decode, _user$project$Fetch$url);
+var _user$project$Fetch$initialModel = '';
+var _user$project$Fetch$FetchError = function (a) {
+	return {ctor: 'FetchError', _0: a};
+};
+var _user$project$Fetch$FetchSuccess = function (a) {
+	return {ctor: 'FetchSuccess', _0: a};
+};
+var _user$project$Fetch$fetchCmd = A3(_elm_lang$core$Task$perform, _user$project$Fetch$FetchError, _user$project$Fetch$FetchSuccess, _user$project$Fetch$fetchTask);
+var _user$project$Fetch$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Fetch':
+				return {ctor: '_Tuple2', _0: model, _1: _user$project$Fetch$fetchCmd};
+			case 'FetchSuccess':
+				return {ctor: '_Tuple2', _0: _p0._0, _1: _elm_lang$core$Platform_Cmd$none};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Basics$toString(_p0._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$Fetch$Fetch = {ctor: 'Fetch'};
+var _user$project$Fetch$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$Fetch$Fetch)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Fetch')
+					])),
+				_elm_lang$html$Html$text(model)
+			]));
+};
